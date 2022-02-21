@@ -42,19 +42,28 @@ function getOperation(symbol) {
   }
 }
 
+function getOutput(operandA, operandB, operatorSymbol) {
+  const operate = getOperation(operatorSymbol);
+  const result = operate(operandA, operandB);
+
+  return result;
+}
+
 const textFieldA = document.querySelector(".text-field-a");
 const textFieldB = document.querySelector(".text-field-b");
 const operationField = document.querySelector(".operation");
 const calculateButton = document.querySelector(".calculate");
 
 calculateButton.addEventListener("click", () => {
-  const operate = getOperation(operationField.value);
-  const result = operate(+textFieldA.value, +textFieldB.value);
+  const output = getOutput(
+    textFieldA.value,
+    textFieldB.value,
+    operationField.value
+  );
 
-  if (result === undefined) {
-    console.log("Invalid operation!");
-  } else {
-    console.log(`Result: ${result}`);
-  }
+  document.querySelector(".output").text = `Result: ${output}`;
 });
 ```
+
+In this example the `getOperation` function returns a different function performing a mathematical operation based on the symbol that was passed.
+Check the [Codepen](https://codepen.io/ajsaraujo/pen/QWOrNRW) for a fully working example.
